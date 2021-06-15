@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.nicolasrodf.tmdbclientjava.R;
 import com.nicolasrodf.tmdbclientjava.databinding.ItemMovieBinding;
 import com.nicolasrodf.tmdbclientjava.model.Movie;
 import java.util.List;
@@ -32,7 +33,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.binding.tvTitle.setText(movies.get(position).getOriginalTitle());
         holder.binding.tvRating.setText(Double.toString(movies.get(position).getVoteAverage()));
 
-        String imagePath="https://image.tmdb.org/t/p/w500"+ movies.get(position).getPosterPath();
+        String imagePath=context.getString(R.string.image_url)+ movies.get(position).getPosterPath();
 
         Glide.with(context)
                 .load(imagePath)

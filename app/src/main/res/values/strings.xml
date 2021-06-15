@@ -2,4 +2,5 @@
     <string name="app_name">TMDBClientJava</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_url">https://image.tmdb.org/t/p/w500</string>
 </resources>

@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.nicolasrodf.tmdbclientjava.R;
+import com.nicolasrodf.tmdbclientjava.databinding.FragmentMovieDetailBinding;
 import com.nicolasrodf.tmdbclientjava.model.Movie;
 
 public class MovieDetailFragment extends ParentFragment {
 
     private Movie movie;
+    private FragmentMovieDetailBinding binding;
 
     public static MovieDetailFragment newInstance(Movie movie) {
         MovieDetailFragment fragment = new MovieDetailFragment();
@@ -31,7 +34,15 @@ public class MovieDetailFragment extends ParentFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentMovieDetailBinding.inflate(inflater,container,false);
+        getMainActivity().setTitle(movie.getTitle());
+        loadToolbarImage();
+        return binding.getRoot();
+    }
 
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false);
+    private void loadToolbarImage() {
+        Glide.with(getCurrentActivity())
+                .load(getString(R.string.image_url)+movie.getPosterPath())
+                .into(binding.ivMovieLarge);
     }
 }

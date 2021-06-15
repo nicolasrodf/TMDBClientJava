@@ -1,16 +1,13 @@
 package com.nicolasrodf.tmdbclientjava.ui;
 
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.transition.TransitionInflater;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.nicolasrodf.tmdbclientjava.R;
 import com.nicolasrodf.tmdbclientjava.adapter.MovieAdapter;
 import com.nicolasrodf.tmdbclientjava.databinding.FragmentMovieListBinding;
@@ -19,9 +16,7 @@ import com.nicolasrodf.tmdbclientjava.model.MovieDbResponse;
 import com.nicolasrodf.tmdbclientjava.service.MovieDataService;
 import com.nicolasrodf.tmdbclientjava.service.RetrofitInstance;
 import com.nicolasrodf.tmdbclientjava.util.Constants;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

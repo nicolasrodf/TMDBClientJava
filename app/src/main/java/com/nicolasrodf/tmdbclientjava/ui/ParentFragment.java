@@ -5,8 +5,6 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.nicolasrodf.tmdbclientjava.MainActivity;
-
 public class ParentFragment extends Fragment {
 
     AppCompatActivity activity;
