@@ -36,13 +36,14 @@ public class MovieDetailFragment extends ParentFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMovieDetailBinding.inflate(inflater,container,false);
         getMainActivity().setTitle(movie.getTitle());
-        loadToolbarImage();
+        loadMovieData();
         return binding.getRoot();
     }
 
-    private void loadToolbarImage() {
+    private void loadMovieData() {
         Glide.with(getCurrentActivity())
                 .load(getString(R.string.image_url)+movie.getPosterPath())
                 .into(binding.ivMovieLarge);
+        binding.tvMovieOverview.setText(movie.getOverview());
     }
 }
