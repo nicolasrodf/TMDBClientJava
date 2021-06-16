@@ -2,6 +2,7 @@ package com.nicolasrodf.tmdbclientjava.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.nicolasrodf.tmdbclientjava.R;
 import com.nicolasrodf.tmdbclientjava.databinding.ActivityMainBinding;
 import com.nicolasrodf.tmdbclientjava.model.Movie;
 import com.nicolasrodf.tmdbclientjava.util.Helper;
+import com.nicolasrodf.tmdbclientjava.viewmodel.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity {
 

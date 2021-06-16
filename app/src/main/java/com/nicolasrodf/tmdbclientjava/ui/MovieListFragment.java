@@ -2,6 +2,8 @@ package com.nicolasrodf.tmdbclientjava.ui;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.transition.TransitionInflater;
 import android.util.Log;
@@ -16,7 +18,11 @@ import com.nicolasrodf.tmdbclientjava.model.MovieDbResponse;
 import com.nicolasrodf.tmdbclientjava.service.MovieDataService;
 import com.nicolasrodf.tmdbclientjava.service.RetrofitInstance;
 import com.nicolasrodf.tmdbclientjava.util.Constants;
+import com.nicolasrodf.tmdbclientjava.viewmodel.MainActivityViewModel;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +32,7 @@ public class MovieListFragment extends ParentFragment implements MovieAdapter.On
 
     private MovieAdapter movieAdapter;
     private FragmentMovieListBinding binding;
+    private MainActivityViewModel mainActivityViewModel;
 
     public static MovieListFragment newInstance() {
         MovieListFragment fragment = new MovieListFragment();
@@ -33,7 +40,7 @@ public class MovieListFragment extends ParentFragment implements MovieAdapter.On
     }
 
     @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setExitTransition(inflater.inflateTransition(R.transition.fade));
@@ -42,6 +49,7 @@ public class MovieListFragment extends ParentFragment implements MovieAdapter.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMovieListBinding.inflate(inflater,container,false);
+        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         initAdapter();
         getPopularMovies();
         setSwipeToRefresh();
@@ -54,20 +62,10 @@ public class MovieListFragment extends ParentFragment implements MovieAdapter.On
     }
 
     private void getPopularMovies() {
-        MovieDataService movieDataService = RetrofitInstance.getMovieDataService();
-        Call<MovieDbResponse> movieDbResponseCall = movieDataService.getPopularMovies(Constants.API_KEY);
-        movieDbResponseCall.enqueue(new Callback<MovieDbResponse>() {
-            @Override
-            public void onResponse(Call<MovieDbResponse> call, Response<MovieDbResponse> response) {
-                movieAdapter.setMovies(response.body().getMovies());
-                movieAdapter.notifyDataSetChanged();
-                binding.swiperefresh.setRefreshing(false);
-            }
-
-            @Override
-            public void onFailure(Call<MovieDbResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-            }
+        mainActivityViewModel.getAllMovies().observe(getMainActivity(), movies -> {
+            movieAdapter.setMovies(movies);
+            movieAdapter.notifyDataSetChanged();
+            binding.swiperefresh.setRefreshing(false);
         });
     }
 
