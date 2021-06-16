@@ -3,6 +3,11 @@ package com.nicolasrodf.tmdbclientjava.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,8 +23,8 @@ import com.nicolasrodf.tmdbclientjava.viewmodel.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MovieListFragment movieListFragment;
-    private MovieDetailFragment movieDetailFragment;
+    private AppBarConfiguration appBarConfiguration;
+    private NavController navController;
     private ActivityMainBinding binding;
 
     @Override
@@ -27,63 +32,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
-        actionNewMovieListFragment();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     }
 
-    public void actionNewMovieListFragment() {
-        if (movieListFragment == null) {
-            movieListFragment = MovieListFragment.newInstance();
-            Helper.replaceFragment(getSupportFragmentManager(), R.id.fl_container, movieListFragment);
-        }
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
     public void actionNewMovieDetailFragment(Movie movie) {
-        if (movieDetailFragment == null) {
-            movieDetailFragment = MovieDetailFragment.newInstance(movie);
-            Helper.addFragmentAnim(getSupportFragmentManager(), R.id.fl_container, movieDetailFragment);
-            showBackToolbarButtonAndCollapsingToolbar();
-        }
-    }
-
-    public void onNavigationClickAction() {
-        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fl_container);
-        if (f instanceof MovieDetailFragment) {
-            actionCloseMovieDetailFragment();
-        }
-    }
-
-    public void actionCloseMovieDetailFragment() {
-        if (movieDetailFragment != null) {
-            Helper.removeFragmentAnim(getSupportFragmentManager(), movieDetailFragment);
-            movieDetailFragment = null;
-            refreshToolbar();
-        }
-    }
-
-    private void refreshToolbar(){
-        setTitle(getString(R.string.app_name));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    }
-
-    private void showBackToolbarButtonAndCollapsingToolbar(){
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onNavigationClickAction();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        onNavigationClickAction();
+        navController.navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movie));
     }
 }
 

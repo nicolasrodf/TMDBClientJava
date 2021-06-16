@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.nicolasrodf.tmdbclientjava.model.Movie;
-import com.nicolasrodf.tmdbclientjava.repository.MovieRepository;
+import com.nicolasrodf.tmdbclientjava.data.repository.MovieRepository;
 
 import org.jetbrains.annotations.NotNull;
 

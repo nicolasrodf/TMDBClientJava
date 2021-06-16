@@ -35,6 +35,7 @@ public class MovieDetailFragment extends ParentFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMovieDetailBinding.inflate(inflater,container,false);
+        movie = MovieDetailFragmentArgs.fromBundle(getArguments()).getMovie();
         getMainActivity().setTitle(movie.getTitle());
         loadMovieData();
         return binding.getRoot();

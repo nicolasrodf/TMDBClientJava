@@ -1,6 +1,5 @@
-package com.nicolasrodf.tmdbclientjava.repository;
+package com.nicolasrodf.tmdbclientjava.data.repository;
 
-import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
