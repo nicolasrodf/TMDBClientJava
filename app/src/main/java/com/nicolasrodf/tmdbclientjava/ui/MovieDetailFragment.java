@@ -19,14 +19,8 @@ public class MovieDetailFragment extends ParentFragment {
     private Movie movie;
     private FragmentMovieDetailBinding binding;
 
-    public static MovieDetailFragment newInstance(Movie movie) {
-        MovieDetailFragment fragment = new MovieDetailFragment();
-        fragment.movie = movie;
-        return fragment;
-    }
-
     @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.slide_right));

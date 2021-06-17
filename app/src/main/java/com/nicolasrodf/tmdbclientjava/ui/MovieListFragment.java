@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.transition.TransitionInflater;
 import android.util.Log;
@@ -37,11 +38,6 @@ public class MovieListFragment extends ParentFragment implements MovieAdapter.On
     private FragmentMovieListBinding binding;
     private MainActivityViewModel mainActivityViewModel;
 
-    public static MovieListFragment newInstance() {
-        MovieListFragment fragment = new MovieListFragment();
-        return fragment;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,15 +61,19 @@ public class MovieListFragment extends ParentFragment implements MovieAdapter.On
     }
 
     private void getPopularMovies() {
-        mainActivityViewModel.getAllMovies().observe(getMainActivity(), movies -> {
+        /*mainActivityViewModel.getAllMovies().observe(getMainActivity(), movies -> {
             movieAdapter.setMovies(movies);
             movieAdapter.notifyDataSetChanged();
+            binding.swiperefresh.setRefreshing(false);
+        });*/
+        mainActivityViewModel.getPagedListLiveData().observe(getMainActivity(), movies -> {
+            movieAdapter.submitList(movies);
             binding.swiperefresh.setRefreshing(false);
         });
     }
 
     private void initAdapter() {
-        movieAdapter = new MovieAdapter(getContext(),new ArrayList<>(),this);
+        movieAdapter = new MovieAdapter(getContext(),this);
         binding.rvMovies.setLayoutManager(new GridLayoutManager(getContext(),2));
         binding.rvMovies.setAdapter(movieAdapter);
     }

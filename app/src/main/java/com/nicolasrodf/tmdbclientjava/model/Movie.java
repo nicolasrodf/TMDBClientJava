@@ -3,8 +3,14 @@ package com.nicolasrodf.tmdbclientjava.model;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import org.jetbrains.annotations.NotNull;
 
 public class Movie implements Parcelable
 {
@@ -220,5 +226,18 @@ public class Movie implements Parcelable
     public int describeContents() {
         return 0;
     }
+
+    //DifUtilCallback
+    public static final DiffUtil.ItemCallback<Movie> CALLBACK = new DiffUtil.ItemCallback<Movie>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull @NotNull Movie oldItem, @NonNull @NotNull Movie newItem) {
+            return oldItem.id.equals(newItem.id);
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull @NotNull Movie oldItem, @NonNull @NotNull Movie newItem) {
+            return true;
+        }
+    };
 
 }

@@ -3,6 +3,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.nicolasrodf.tmdbclientjava.R;
@@ -10,15 +11,14 @@ import com.nicolasrodf.tmdbclientjava.databinding.ItemMovieBinding;
 import com.nicolasrodf.tmdbclientjava.model.Movie;
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>{
+public class MovieAdapter extends PagedListAdapter<Movie,MovieAdapter.MovieViewHolder>{
 
     private Context context;
-    private List<Movie> movies;
     private OnMovieListener onMovieListener;
 
-    public MovieAdapter(Context context, List<Movie> movies, OnMovieListener onMovieListener) {
+    public MovieAdapter(Context context, OnMovieListener onMovieListener) {
+        super(Movie.CALLBACK);
         this.context = context;
-        this.movies = movies;
         this.onMovieListener = onMovieListener;
     }
 
@@ -30,19 +30,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 
-        holder.binding.tvTitle.setText(movies.get(position).getOriginalTitle());
-        holder.binding.tvRating.setText(Double.toString(movies.get(position).getVoteAverage()));
+        holder.binding.tvTitle.setText(getItem(position).getOriginalTitle());
+        holder.binding.tvRating.setText(Double.toString(getItem(position).getVoteAverage()));
 
-        String imagePath=context.getString(R.string.image_url)+ movies.get(position).getPosterPath();
+        String imagePath=context.getString(R.string.image_url)+ getItem(position).getPosterPath();
 
         Glide.with(context)
                 .load(imagePath)
                 .into(holder.binding.ivMovie);
-    }
-
-    @Override
-    public int getItemCount() {
-        return movies.size();
     }
 
 
@@ -51,16 +46,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public MovieViewHolder(ItemMovieBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            itemView.setOnClickListener(v -> onMovieListener.onMovieClick(movies.get(getBindingAdapterPosition())));
+            itemView.setOnClickListener(v -> onMovieListener.onMovieClick(getItem(getBindingAdapterPosition())));
         }
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
     }
 
     public interface OnMovieListener{
