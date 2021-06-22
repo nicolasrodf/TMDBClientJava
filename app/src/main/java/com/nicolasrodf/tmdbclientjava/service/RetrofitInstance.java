@@ -18,7 +18,7 @@ public class RetrofitInstance {
     private static Retrofit retrofit = null;
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
-    public static MovieDataService getMovieDataService(){
+    public static MovieIface getMovieDataService(){
         if(retrofit ==null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -27,7 +27,7 @@ public class RetrofitInstance {
                     .client(getUnsafeOkHttpClient())
                     .build();
         }
-        return retrofit.create(MovieDataService.class);
+        return retrofit.create(MovieIface.class);
     }
 
     //OkHttp

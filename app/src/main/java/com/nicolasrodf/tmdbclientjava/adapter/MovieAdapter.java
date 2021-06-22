@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.nicolasrodf.tmdbclientjava.R;
 import com.nicolasrodf.tmdbclientjava.databinding.ItemMovieBinding;
-import com.nicolasrodf.tmdbclientjava.model.Movie;
-import java.util.List;
+import com.nicolasrodf.tmdbclientjava.data.model.Movie;
 
 public class MovieAdapter extends PagedListAdapter<Movie,MovieAdapter.MovieViewHolder>{
 

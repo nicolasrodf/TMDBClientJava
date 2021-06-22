@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.nicolasrodf.tmdbclientjava.R;
 import com.nicolasrodf.tmdbclientjava.databinding.FragmentMovieDetailBinding;
-import com.nicolasrodf.tmdbclientjava.model.Movie;
+import com.nicolasrodf.tmdbclientjava.data.model.Movie;
 
 public class MovieDetailFragment extends ParentFragment {
 

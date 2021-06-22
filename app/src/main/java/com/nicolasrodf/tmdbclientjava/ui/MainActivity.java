@@ -1,8 +1,6 @@
 package com.nicolasrodf.tmdbclientjava.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -11,15 +9,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
+import com.nicolasrodf.tmdbclientjava.App;
 import com.nicolasrodf.tmdbclientjava.R;
 import com.nicolasrodf.tmdbclientjava.databinding.ActivityMainBinding;
-import com.nicolasrodf.tmdbclientjava.model.Movie;
-import com.nicolasrodf.tmdbclientjava.util.Helper;
-import com.nicolasrodf.tmdbclientjava.viewmodel.MainActivityViewModel;
+import com.nicolasrodf.tmdbclientjava.data.model.Movie;
 
 public class MainActivity extends AppCompatActivity {
 

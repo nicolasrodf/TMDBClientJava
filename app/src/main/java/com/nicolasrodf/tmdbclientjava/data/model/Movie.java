@@ -1,4 +1,4 @@
-package com.nicolasrodf.tmdbclientjava.model;
+package com.nicolasrodf.tmdbclientjava.data.model;
 
 import java.util.ArrayList;
 import java.util.List;

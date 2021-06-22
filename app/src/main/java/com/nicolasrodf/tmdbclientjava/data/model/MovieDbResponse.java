@@ -1,4 +1,4 @@
-package com.nicolasrodf.tmdbclientjava.model;
+package com.nicolasrodf.tmdbclientjava.data.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class MovieDbResponse implements Parcelable
 
     protected MovieDbResponse(android.os.Parcel in) {
         this.page = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        in.readList(this.movies, (com.nicolasrodf.tmdbclientjava.model.Movie.class.getClassLoader()));
+        in.readList(this.movies, (com.nicolasrodf.tmdbclientjava.data.model.Movie.class.getClassLoader()));
         this.totalResults = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.totalPages = ((Integer) in.readValue((Integer.class.getClassLoader())));
     }

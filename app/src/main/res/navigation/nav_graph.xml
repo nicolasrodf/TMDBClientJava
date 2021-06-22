@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.nicolasrodf.tmdbclientjava.ui.MovieListFragment"
-        android:label="MovieListFragment"
         tools:layout="@layout/fragment_movie_list">
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailFragment"
@@ -17,10 +16,9 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.nicolasrodf.tmdbclientjava.ui.MovieDetailFragment"
-        android:label="MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail">
         <argument
             android:name="movie"
-            app:argType="com.nicolasrodf.tmdbclientjava.model.Movie" />
+            app:argType="com.nicolasrodf.tmdbclientjava.data.model.Movie" />
     </fragment>
 </navigation>

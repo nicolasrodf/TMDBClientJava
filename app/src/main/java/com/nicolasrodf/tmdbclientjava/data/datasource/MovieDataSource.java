@@ -3,9 +3,9 @@ package com.nicolasrodf.tmdbclientjava.data.datasource;
 import android.util.Log;
 
 import androidx.paging.PageKeyedDataSource;
-import com.nicolasrodf.tmdbclientjava.model.Movie;
-import com.nicolasrodf.tmdbclientjava.model.MovieDbResponse;
-import com.nicolasrodf.tmdbclientjava.service.MovieDataService;
+import com.nicolasrodf.tmdbclientjava.data.model.Movie;
+import com.nicolasrodf.tmdbclientjava.data.model.MovieDbResponse;
+import com.nicolasrodf.tmdbclientjava.service.MovieIface;
 import com.nicolasrodf.tmdbclientjava.service.RetrofitInstance;
 import com.nicolasrodf.tmdbclientjava.util.Constants;
 
@@ -18,17 +18,10 @@ import retrofit2.Response;
 public class MovieDataSource extends PageKeyedDataSource<Integer, Movie> {
     private static final String TAG = "MovieDataSource";
 
-    private MovieDataService movieDataService;
-
-    public MovieDataSource(MovieDataService movieDataService) {
-        this.movieDataService = movieDataService;
-    }
-
-
     @Override
     public void loadAfter(@NotNull LoadParams<Integer> loadParams, @NotNull LoadCallback<Integer, Movie> loadCallback) {
-        MovieDataService movieDataService = RetrofitInstance.getMovieDataService();
-        Call<MovieDbResponse> movieDbResponseCall = movieDataService.getPopularMoviesWithPaging(Constants.API_KEY,loadParams.key);
+        MovieIface movieIface = RetrofitInstance.getMovieDataService();
+        Call<MovieDbResponse> movieDbResponseCall = movieIface.getPopularMoviesWithPaging(Constants.API_KEY,loadParams.key);
         movieDbResponseCall.enqueue(new Callback<MovieDbResponse>() {
             @Override
             public void onResponse(Call<MovieDbResponse> call, Response<MovieDbResponse> response) {
@@ -51,8 +44,8 @@ public class MovieDataSource extends PageKeyedDataSource<Integer, Movie> {
 
     @Override
     public void loadInitial(@NotNull LoadInitialParams<Integer> loadInitialParams, @NotNull LoadInitialCallback<Integer, Movie> loadInitialCallback) {
-        MovieDataService movieDataService = RetrofitInstance.getMovieDataService();
-        Call<MovieDbResponse> movieDbResponseCall = movieDataService.getPopularMoviesWithPaging(Constants.API_KEY,1);
+        MovieIface movieIface = RetrofitInstance.getMovieDataService();
+        Call<MovieDbResponse> movieDbResponseCall = movieIface.getPopularMoviesWithPaging(Constants.API_KEY,1);
         movieDbResponseCall.enqueue(new Callback<MovieDbResponse>() {
             @Override
             public void onResponse(Call<MovieDbResponse> call, Response<MovieDbResponse> response) {
